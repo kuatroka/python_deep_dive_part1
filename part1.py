@@ -784,3 +784,102 @@ my_var = None
 
 gc.collect()
 
+########################################################
+#########  var types
+
+a = 'hello'
+type(a)
+a= 10
+type(a)
+
+a = lambda x: x**2
+type(a)
+
+########################################################
+############ variables reassignment
+
+a = 10
+hex(id(a))
+type(a)
+
+a = 15
+hex(id(a))
+
+a = a + 1
+hex(id(a))
+
+a = 10
+b = 10
+
+hex(id(a))
+hex(id(b))
+
+
+
+#################################
+##### mutable and immutable structures
+
+my_list = [1, 2, 3]
+type(my_list)
+
+id(my_list)
+
+my_list.append(4)
+my_list
+id(my_list)
+
+my_list_1 = [1, 2, 3]
+id(my_list_1)
+
+my_list_1 = my_list_1 + [4]
+
+my_list_1
+id(my_list_1)
+
+my_dict = dict(key1= 1, key2 = 'a')
+id(my_dict)
+my_dict['key3'] = 10.5
+my_dict
+id(my_dict)
+
+t = (1, 2, 3)
+id(t)
+
+t[0]
+id(t[2])
+
+t = ([1,2], [3,4])
+t[1]
+t[0].append(3)
+
+id(t)
+t[1].append('34')
+
+id(t)
+
+#################################
+
+def process(s):
+    print('Initial s # = {0}'.format(id(s)))
+    s = s + 'world'
+    print('Final s # = {0}'.format(id(s)))
+
+my_var = 'Hello'
+print('my_var # = {0}'.format(id(my_var)))
+process(my_var)
+
+
+
+def modify_list(lst):
+    print('Initial lst # = {0}'.format(id(lst)))
+    lst.append(100)
+    print('Final lst # = {0}'.format(id(lst)))
+
+
+my_list = [1,2,3]
+id(my_list)
+print('my_list # = {0}'.format(id(my_list)))
+
+modify_list(my_list)
+
+

@@ -412,6 +412,338 @@ for i, c in enumerate(s):
 #####################################################################
 ######### Classes  ##################################################
 
+class Rectangle:
+       def __init__(self, width, height):
+           self.width = width
+           self.height = height
+
+r1 = Rectangle(10, 20)
+r1.width
+
+r1.width = 100
+r1.width
+
+
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+
+r1 = Rectangle(10, 20)
+
+r1.area()
+
+r1.perimeter()
+
+
+str(r1)
+
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+
+    def to_string(self):
+        return 'Rectangle: width={0}, height={1}'.format(self.width, self.height)
+
+r1 = Rectangle(10, 20)
+
+str(r1)
+r1.to_string()
+
+####################### __repr__
+class Rectangle:
+
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+
+    def __str__(self):
+        return 'Rectangle: width={0}, height={1}'.format(self.width, self.height)
+
+    def __repr__(self):
+        return 'Rectangle({0}, {1})'.format(self.width, self.height)
+
+r1 = Rectangle(10, 20)
+
+str(r1)
+r1
+
+r2 = Rectangle(10, 20)
+
+r1 is not r2
+r1 == r2
+
+
+##################### __eq__
+
+class Rectangle:
+
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+
+    def __str__(self):
+        return 'Rectangle: width={0}, height={1}'.format(self.width, self.height)
+
+    def __repr__(self):
+        return 'Rectangle({0}, {1})'.format(self.width, self.height)
+
+    def __eq__(self, other):
+        return self.height == other.height and self.width == other.width
+
+r1 = Rectangle(10, 20)
+
+r2 = Rectangle(10, 20)
+
+r1 == r2
+r1 is not r2
+r1 == 200
+
+#'##################
+class Rectangle:
+
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+
+    def __str__(self):
+        return 'Rectangle: width={0}, height={1}'.format(self.width, self.height)
+
+    def __repr__(self):
+        return 'Rectangle({0}, {1})'.format(self.width, self.height)
+
+    def __eq__(self, other):
+        if isinstance(other, Rectangle):
+            return self.height == other.height and self.width == other.width
+        else:
+            return False
+
+r1 = Rectangle(10, 20)
+
+r2 = Rectangle(10, 20)
+
+r1 == r2
+r1 is not r2
+r1 == 200
+
+
+############### less than
+
+class Rectangle:
+
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+
+    def __str__(self):
+        return 'Rectangle: width={0}, height={1}'.format(self.width, self.height)
+
+    def __repr__(self):
+        return 'Rectangle({0}, {1})'.format(self.width, self.height)
+
+    def __eq__(self, other):
+        if isinstance(other, Rectangle):
+            return self.height == other.height and self.width == other.width
+        else:
+            return False
+
+    def __lt__(self, other):
+        if isinstance(other, Rectangle):
+            return self.area() < other.area()
+        else:
+            return NotImplemented
+
+    
+
+r1 = Rectangle(10, 20)
+
+r2 = Rectangle(100, 200)
+
+r1 < r2
+r2 < r
+r1 <= r2
+
+r1 == r2
+r1 is not r2
+r1 < 200
+
+##################################### getter and setter java way
+class Rectangle:
+
+    def __init__(self, width, height):
+        self._width = width
+        self._height = height
+
+    def get_width(self):
+        return self._width
+
+    def set_width(self, width):
+        if width <= 0:
+            raise ValueError('Width musts be positive')
+        else:
+            self._width = width
+  
+    def __str__(self):
+        return 'Rectangle: width={0}, height={1}'.format(self._width, self._height)
+
+    def __repr__(self):
+        return 'Rectangle({0}, {1})'.format(self._width, self._height)
+
+    def __eq__(self, other):
+        if isinstance(other, Rectangle):
+            return self._height == other._height and self._width == other._width
+        else:
+            return False
+
+r1 = Rectangle(10, 20)
+r1.width
+r1._width
+
+r1.width = -100
+r1.get_width()
+
+r1.set_width(100)
+r1
+############### getter and setter pytonic way. Pay attention how decorator is used
+############### and how it converts a method to a property
+class Rectangle:
+
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    @property
+    def width(self):
+        return self._width
+
+    @width.setter
+    def width(self, width):
+        if width <= 0:
+            raise ValueError('Width must be positive')
+        else:
+            self._width = width
+            
+
+    @property
+    def height(self):
+        return self._height
+
+    @height.setter
+    def height(self, height):
+        if height <= 0:
+            raise ValueError('Height must be positive')
+        else:
+            self._height = height 
+
+   
+    def __str__(self):
+        return 'Rectangle: width={0}, height={1}'.format(self.width, self.height)
+
+    def __repr__(self):
+        return 'Rectangle({0}, {1})'.format(self.width, self.height)
+
+    def __eq__(self, other):
+        if isinstance(other, Rectangle):
+            return self.height == other.height and self.width == other.width
+        else:
+            return False
+
+r1 = Rectangle(10, 20)
+
+r1.width
+
+r1.width = 300
+r1.width = -2
+
+r1 = Rectangle(10, 20)
+
+
+############################################################################
+############## variables and memory  #######################################
+
+my_var = 10
+print(my_var)
+print(id(my_var))
+print(hex(id(my_var)))
+
+greeting = 'hello'
+print(greeting)
+print(hex(id(greeting)))
+
+other_var = my_var
+
+print(hex(id(other_var)))
+
+sys.getrefcount(my_var)
+import ctypes
+ctypes.c_long.from_address(id(my_var))
+
+import sys
+a = [1,2,3]
+
+id(a)
+sys.getrefcount(a)
+
+def ref_count(address: int):
+    return ctypes.c_long.from_address(address).value
+
+ref_count(id(a))
 
 
 
+b = a
+ref_count(id(b))
+
+c = a
+ref_count(id(c))
+c = 10
+b = None
+
+import gc
+
+def ref_count(address):
+    return ctypes.c_long.from_address(address).value
+
+    

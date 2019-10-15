@@ -1049,9 +1049,12 @@ f(2)
 select_function(2)(3) ### !!!!!  wow - this is how to pass parameters to 
                       ### the function within a function
 
+select_function(1)(4)
+
 def exec_function(fn, n):
     return fn(n)
 
 exec_function(cube, 3)       
 
 exec_function(square, 2)
+

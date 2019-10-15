@@ -995,3 +995,63 @@ a is b
 a is None
 b is None
 
+#####################################################
+
+a = 10 
+print(type(a))
+
+b = 10
+type(b)
+
+print(type(b))
+
+ help(int)
+
+ c = int()
+ c
+ c = int('101', base=2)
+ c
+
+def square(a):
+    return a **2
+
+type(square)
+
+f = square
+
+id(square)
+
+id(f)
+
+square is f
+square(2)
+f(2)
+
+def cube(a):
+    return a **3
+
+ 
+def select_function(fn_id):
+    if fn_id == 1:
+            return square
+    else:
+        return cube
+
+f = select_function(1)
+f is square
+
+f == square
+f(2)
+f = select_function(4)
+
+f(2)
+
+select_function(2)(3) ### !!!!!  wow - this is how to pass parameters to 
+                      ### the function within a function
+
+def exec_function(fn, n):
+    return fn(n)
+
+exec_function(cube, 3)       
+
+exec_function(square, 2)

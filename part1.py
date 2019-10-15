@@ -894,3 +894,104 @@ id(my_tuple)
 
 modify_tuple(my_tuple)
 
+###########################################
+
+a = 'hello'
+b = a
+hex(id(a))
+
+hex(id(b))
+
+a = 'hello'
+b = 'hello'
+
+hex(id(a))
+
+hex(id(b))
+
+b = 'hello world'
+
+hex(id(b))
+
+hex(id(a))
+
+a = [1,2,3]
+
+b = a 
+hex(id(a))
+
+hex(id(b))
+
+b.append(100)
+hex(id(a))
+
+hex(id(b))
+
+a
+
+a = 10
+b = 10
+
+hex(id(a))
+hex(id(b))
+
+a = 500
+b = 500
+
+hex(id(a))
+hex(id(b))
+
+a is b
+a is not b
+not(a is b)
+a == b
+
+a != b
+not(a == b)
+
+a = [1,2,3]
+b = [1,2,3]
+
+hex(id(a))
+hex(id(b))
+a is b
+a == b
+
+
+a = 10
+b = 10
+
+id(a)
+id(b)
+
+a is b
+a == b
+
+a = 500
+b = 500
+
+id(a)
+id(b)
+
+a == b
+a is b
+
+
+a = 10 + 0j
+type(a)
+b = 10
+
+a is b
+a== b
+
+id(None)
+
+a = None
+b = None
+c = None
+
+
+a is b
+a is None
+b is None
+

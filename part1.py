@@ -1086,3 +1086,152 @@ print(a,b,c,d)
 print(id(a), id(b), id(c), id(d))
 
 
+#################################################
+a = 'hello'
+b = 'hello'
+
+id(a), id(b)
+
+a = 'hello world'
+b = 'hello world'
+id(a), id(b)
+
+a==b
+a is b
+
+a = '_this_is_a_long_string_that_could_be_used_as'
+
+b = '_this_is_a_long_string_that_could_be_used_as'
+
+a == b
+a is b
+
+import sys
+a = sys.intern('hello world')
+b = sys.intern('hello world')
+c = 'hello world'
+
+id(a), id(b), id(c)
+
+a is b
+a is c
+a == c
+
+####################################################
+## time how long does it take to run two comparisons
+
+def compare_using_equals(n):
+    a = 'a long string that is not interned' *  200
+    b = 'a long string that is not interned' *  200
+    for i in range(n):
+        if a == b:
+            pass
+
+def compare_using_interning(n):
+    a = sys.intern('a long string that is not interned' *  200)
+    b = sys.intern('a long string that is not interned' *  200)
+    for i in range(n):
+        if a is b:
+            pass
+
+
+import time
+start = time.perf_counter()
+compare_using_equals(10000000)
+end = time.perf_counter()
+print('equality', end-start)
+
+start = time.perf_counter()
+compare_using_interning(10000000)
+end = time.perf_counter()
+print('equality', end-start)
+
+######################################################
+
+(1,2) * 5
+'abc' * 3
+'hello' + ' world'
+
+def my_func():
+    a = 24 * 60
+    b = (1,2) * 5
+    c = 'avc' * 3
+    d = 'ab' * 11
+    e = 'the quick brown fox' * 5
+    f = ['a', 'b'] * 3
+
+my_func.__code__.co_consts
+
+def my_func(e):
+    if en in {1,2,3}:
+        pass
+
+my_func.__code__.co_consts
+
+
+
+import string
+import time
+string.ascii_letters
+
+char_list = list(string.ascii_letters)
+char_tuple = tuple(string.ascii_letters)
+
+char_set = set(string.ascii_letters)
+
+
+print(char_list)
+print(char_tuple)
+print(char_set)
+
+def membership_test(n, container):
+    for i in range(n):
+        if 'z' in container:
+            pass
+
+
+start = time.perf_counter()
+membership_test(10000000, char_list)
+end = time.perf_counter()
+print('list', end-start)
+
+start = time.perf_counter()
+membership_test(10000000, char_tuple)
+end = time.perf_counter()
+print('tuple', end-start)
+
+start = time.perf_counter()
+membership_test(10000000, char_set)
+end = time.perf_counter()
+print('set', end-start)
+
+#################################
+##### a set is the quickest iterator, so if possible or the 
+##### speed is necessary, it's better to use sets
+
+##########################################################
+########## Integers #####################################
+
+print(type(100))
+
+import sys
+sys.getsizeof(0)
+
+sys.getsizeof(1)
+sys.getsizeof(3 ** 1000)
+
+import time
+
+def calc(a):
+    for i in range(10000000):
+        a * 2
+
+start = time.perf_counter()
+calc(2 ** 100)
+end = time.perf_counter()
+print(end - start)
+
+start = time.perf_counter()
+calc(2 ** 10000)
+end = time.perf_counter()
+print(end - start)

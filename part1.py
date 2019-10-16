@@ -1058,3 +1058,31 @@ exec_function(cube, 3)
 
 exec_function(square, 2)
 
+##########################################################
+##[-5, 256]
+a = 10
+b = 10
+
+id(a)
+id(b)
+
+
+a = -5
+b = -5
+
+a is b
+
+a = 256
+b = 256
+
+a is b
+
+a = 10
+b = int(10)
+c = int('10')
+d = int('1010', 2)
+print(a,b,c,d)
+
+print(id(a), id(b), id(c), id(d))
+
+

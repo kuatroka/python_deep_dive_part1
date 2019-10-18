@@ -1236,5 +1236,85 @@ calc(2 ** 10000)
 end = time.perf_counter()
 print(end - start)
 
-########
-########
+######## 
+######## floor division, modulo
+
+135 // 4
+135 % 4
+
+type(1+1)
+
+type(2*3)
+
+type(4-10)
+
+type(3**6)
+
+type(2/3)
+
+10/2
+print(10/2)
+
+import math
+math.floor(3.15)
+math.floor(3.999)
+math.floor(-3.14)
+
+math.ceil(3.999)
+math.floor(-3.000001)
+
+math.floor(-3.0000001)
+math.floor(-3.0000000000000000000001)
+
+a = 33
+b = 16
+
+print(a/b)
+print(a//b)
+print(math.floor(a/b))
+
+a//b is math.floor(a/b)
+a//b == math.floor(a/b)
+
+a = -33
+b = 16
+print(a/b)
+print(a//b)
+print(math.floor(a/b))
+
+
+######## truncation
+
+math.trunc(a/b) != math.floor(a/b)
+
+a = b * (a//b) + (a%b)
+
+a = 13
+b = 4
+print('{0}/{1} = {2}'.format(a,b, a/b))
+print('{0}//{1} = {2}'.format(a,b, a//b))
+print('{0}%{1} = {2}'.format(a,b, a%b))
+print(a == b * (a//b) + (a%b))
+
+a = -13
+b = 4
+print('{0}/{1} = {2}'.format(a,b, a/b))
+print('{0}//{1} = {2}'.format(a,b, a//b))
+print('{0}%{1} = {2}'.format(a,b, a%b))
+print(a == b * (a//b) + (a%b))
+
+a = 13
+b = -4
+print('{0}/{1} = {2}'.format(a,b, a/b))
+print('{0}//{1} = {2}'.format(a,b, a//b))
+print('{0}%{1} = {2}'.format(a,b, a%b))
+print(a == b * (a//b) + (a%b))
+
+a = -13
+b = -4
+print('{0}/{1} = {2}'.format(a,b, a/b))
+print('{0}//{1} = {2}'.format(a,b, a//b))
+print('{0}%{1} = {2}'.format(a,b, a%b))
+print(a == b * (a//b) + (a%b))
+
+

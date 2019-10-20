@@ -1317,4 +1317,174 @@ print('{0}//{1} = {2}'.format(a,b, a//b))
 print('{0}%{1} = {2}'.format(a,b, a%b))
 print(a == b * (a//b) + (a%b))
 
+###################### Integers and bases ############
 
+type(10)
+
+help(int)
+int(10.5)
+int(True)
+
+
+import fractions
+a = fractions.Fraction(22, 7)
+print(a)
+
+float(a)
+int(a)
+
+int('12345')
+int('101', 2)
+
+int('ff', 16)
+
+int('B', 11)
+
+bin(10)
+bin(5)
+oct(10)
+hex(255)
+a = int('101', 2)
+b = 0b101
+a
+b
+
+def from_base10(n, b):
+    if b < 2:
+        raise ValueError('Base b must be >= 2')
+    if n < 0:
+        raise ValueError('Number n must be >=0')
+    if n == 0:
+        return [0]
+
+    digits = []
+    while n > 0:
+        # m, n =  n % b, n // b
+        n, m = divmod(n, b)
+        digits.insert(0, m)
+    return digits
+
+
+from_base10(10, 2)
+from_base10(255, 16)
+
+def encode(digits, digit_map):
+    if max(digits) >= len(digit_map):
+        raise ValueError('digit_map is not long enough to encode digits')
+    encoding = ''
+    for d in digits:
+        encoding += digit_map[d]
+    return encoding
+
+encode([15, 15], '0123456789ABCDEF')
+
+
+######### simpler expression
+def encode(digits, digit_map):
+    if max(digits) >= len(digit_map):
+        raise ValueError('digit_map is not long enough to encode digits')
+    return ''.join([digit_map[d] for d in digits])
+
+encode([15, 15], '0123456789ABCDEF')
+
+
+def rebase_from10(number, base):
+    digit_map = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYX'
+    if base < 2 or base > 36:
+        raise ValueError('Invalid base: 2 <= base >= 36')
+
+    sign = -1 if number < 0 else 1
+    number *= sign
+
+    digits = from_base10(number, base)
+    encoding = encode(digits, digit_map)
+    if sign == -1:
+        encoding = '-' + encoding
+    return encoding
+
+
+
+e = rebase_from10(314, 2)
+print(e)
+print(int(e, base=2))
+
+e = rebase_from10(3451, 16)
+print(e)
+print(int(e, base=16))
+
+
+
+# import string
+# string.digits+string.ascii_letters
+
+from fractions import Fraction
+help(Fraction)
+Fraction(1)
+Fraction(1, 2)
+Fraction(numerator=1, denominator=5)
+Fraction('0.34545')
+Fraction('34/76')
+x = Fraction(2,3)
+y = Fraction(3,4)
+x + y
+x * y
+x / y
+
+Fraction(8, 16)
+Fraction(-1, -4)
+x = Fraction(1, -5)
+x._denominator
+x.numerator
+
+import math
+x = Fraction(math.pi)
+x
+float(x)
+y = Fraction(math.sqrt(2))
+float(y)
+
+a = 0.125
+a
+b = 0.3
+b
+Fraction(a)
+Fraction(b)
+
+format(b, '0.5f')
+format(b, '0.15f')
+format(b, '0.26f')
+Fraction(b)
+x = Fraction(0.3)
+x.limit_denominator(10)
+
+x = Fraction(math.pi)
+x
+float(x)
+x.limit_denominator(10)
+22/7
+x.limit_denominator(10000)
+355/113
+
+######################## Floats
+#########################################################################
+help(float)
+float(10)
+float('12.5')
+float('22/5')
+from fractions import Fraction
+a = Fraction('22/6')
+float(a)
+
+print(0.1)
+format(0.1, '.15f')
+format(0.1, '.20f')
+print(0.125)
+0.125.as_integer_ratio()
+
+1/8
+format(0.125, '.25f')
+a = 0.1 + 0.1 + 0.1
+b = 0.3
+a == b
+format(a, '.25f')
+format(b, '.25f')

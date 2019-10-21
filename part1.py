@@ -1488,3 +1488,92 @@ b = 0.3
 a == b
 format(a, '.25f')
 format(b, '.25f')
+
+
+##################################################
+######### Floats equality testing
+
+x = 0.1
+format(x, '.25f')
+print(x)
+x = 0.125
+format(x, '.25f')
+
+x = 0.125 + 0.125 + 0.125
+y = 0.375
+x == y
+
+x = 0.1 + 0.1 + 0.1
+y = 0.3
+x == y
+
+
+format(x, '.25f')
+format(y, '.25f')
+round(x, 3) == round(y, 3)
+a = round(x, 5)
+format(a, '.3f')
+
+x = 10000.01
+y = 10000.02
+
+delta = y - x
+delta
+y/x
+
+x = 0.01
+y = 0.02
+
+y / x
+
+round(x, 1) == round(y, 1)
+
+from math import isclose
+help(isclose)
+
+
+x = 0.1 + 0.1 + 0.1
+y = 0.3
+x == y
+isclose(x,y)
+
+x = 1212121212112.01
+y = 1212121212112.02
+isclose(x, y, rel_tol=0.001)
+
+x = 0.0000001
+y = 0.0000002
+isclose(x, y, rel_tol=0.001, abs_tol=0.001)
+
+y - x
+
+a = 123456789.01
+b = 123456789.02
+print(isclose(x, y, abs_tol=0.0001, rel_tol=0.01))
+b - a
+print(isclose(a, b, abs_tol=0.001, rel_tol=0.01))
+
+
+############# Coerse Float to Integer
+#### trunc - plucks the decimal out
+#### int does the same for floats
+#### floor leaves the smalles integer (differs from trunc with negative numbers)
+#### ceiling leaves the largest integer from the float
+
+from math import trunc, floor, ceil
+
+trunc(10.3), trunc(10.5), trunc(10.9)
+
+int(10.3), int(10.5), int(10.9)
+floor(10.3), floor(10.5), floor(10.9)
+
+ceil(10.3), ceil(10.5), ceil(10.9)
+
+floor(-10.3), floor(-10.5), floor(-10.9)
+ceil(-10.3), ceil(-10.5), ceil(-10.9)
+
+round(2.6, 0) # searches multiples of 1
+round(1.25, 1) # searches multiples of 0.1
+round(1.35, 1) # searches multiples of 0.1
+round(15, -1) # searches multiples of 10 (10 to the power of (-10))
+round(25, -1) # searches multiples of 10

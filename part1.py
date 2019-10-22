@@ -1625,3 +1625,257 @@ round(10.5)
 #########################################################################
 ############ Decimals ###################################################
 
+import decimal
+from decimal import Decimal
+
+decimal.getcontext().rounding
+decimal.getcontext().prec = 6
+decimal.getcontext()
+g_ctx = decimal.getcontext()
+type(g_ctx)
+g_ctx.rounding = decimal.ROUND_HALF_UP
+g_ctx
+
+g_ctx.prec = 28
+g_ctx.rounding = decimal.ROUND_HALF_EVEN
+
+decimal.localcontext()
+with decimal.localcontext() as ctx:
+    print(type(ctx))
+    print(ctx)
+
+
+with decimal.localcontext() as ctx:
+    ctx.prec = 6
+    ctx.rounding = decimal.ROUND_HALF_UP
+    print(ctx)
+    print(decimal.getcontext())
+    print(id(ctx) == id(decimal.getcontext()))
+
+
+x = Decimal('1.25')
+y = Decimal('1.35')
+
+with decimal.localcontext() as ctx: # executred locally - disappears after
+    # the with bloc is over
+    ctx.prec = 6
+    ctx.rounding = decimal.ROUND_HALF_UP
+    print(round(x, 1))
+    print(round(y, 1))
+
+# executed globally. on the lever of the module
+print(round(x, 1))
+print(round(y, 1))
+
+
+import decimal
+from decimal import Decimal
+
+help(Decimal)
+Decimal()
+Decimal(10)
+Decimal(-10)
+Decimal('10.2')
+Decimal('-10.56')
+# passing decimal from tuples. firstt arg 0 = negative, 1 - positive 
+t = (0, (3,1,4,1,5), -4)
+t2 = (0, (3,1,4,1,5), -3)
+Decimal(t)
+Decimal(t2)
+
+format(0.1, '.25f')
+Decimal(0.1)
+
+Decimal('0.1')
+Decimal('0.1') == Decimal(0.1)
+Decimal(10) == Decimal('10')
+
+### contenxt
+
+decimal.getcontext()
+decimal.getcontext().prec = 6
+a = Decimal('0.123456789')
+b = Decimal('0.123456789')
+
+a, b
+a + b
+
+0.123456789 + 0.123456789
+
+a = Decimal('0.123456789')
+b = Decimal('0.123456789')
+
+print(a + b)
+with decimal.localcontext() as ctx:
+    ctx.prec = 2
+    c = a + b
+    print('c within local context: {0}'.format(c))
+
+print('c within global context: {0}'.format(c))
+
+
+###### div and mod 
+ ##  n = d * (n//d) + (n%d)
+
+x = 10
+y = 3
+print(x//y, x%y)
+print(divmod(x, y))
+print(x == y * (x//y) + (x%y))
+
+x = -10
+y = 3
+print(x//y, x%y)
+print(divmod(x, y))
+print(x == y * (x//y) + (x%y))
+
+
+x = Decimal(-10)
+y = Decimal(3)
+
+print(x//y, x%y)
+print(divmod(x, y))
+print(x == y * (x//y) + (x%y))
+
+
+x = Decimal(-10)
+y = Decimal(3)
+
+print(x//y, x%y)
+print(divmod(x, y))
+print(x == y * (x//y) + (x%y))
+
+decimal.getcontext().prec = 28
+a = Decimal('1.5')
+print(a.ln())
+print(a.exp())
+print(a.sqrt())
+
+
+import math
+
+a = Decimal('0.1')
+print(a.sqrt())
+print(math.sqrt(a))
+
+
+x = 2
+x_dec = Decimal(2)
+root_float = math.sqrt(x)
+root_mixed = math.sqrt(x_dec)
+root_dec = x_dec.sqrt()
+
+print(format(root_float, '1.27f'))
+print(format(root_mixed, '1.27f'))
+print(root_dec)
+
+print(format(root_float * root_float, '1.27f'))
+print(format(root_mixed * root_mixed, '1.27f'))
+print(root_dec * root_dec)
+
+
+x = 0.01
+print(format(x, '.27f'))
+
+x_dec = Decimal('0.01')
+print(x_dec)
+root_float = math.sqrt(x)
+root_mixed = math.sqrt(x_dec)
+root_dec = x_dec.sqrt()
+
+print(format(root_float, '1.27f'))
+print(format(root_mixed, '1.27f'))
+print(root_dec)
+
+print(format(root_float * root_float, '1.27f'))
+print(format(root_mixed * root_mixed, '1.27f'))
+print(root_dec * root_dec)
+
+################# Decimals - Performance
+
+import sys
+a = 3.1415
+b = Decimal('3.1415')
+
+sys.getsizeof(a)
+sys.getsizeof(b)
+
+import time
+def run_float(n=1):
+    for i in range(n):
+        a = 3.1415
+
+def run_decimal(n=1):
+    for i in range(n):
+        a = Decimal('3.1415')
+
+n = 10000000
+
+start = time.perf_counter()
+run_float(n)
+end = time.perf_counter()
+print('float: ', end-start)
+
+
+start = time.perf_counter()
+run_decimal(n)
+end = time.perf_counter()
+print('float: ', end-start)
+
+##################
+import time
+def run_float(n=1):
+    a = 3.1415
+    for i in range(n):
+        a + a
+        
+
+def run_decimal(n=1):
+    a = Decimal('3.1415')
+    for i in range(n):
+        a + a
+        
+
+n = 10000000
+
+start = time.perf_counter()
+run_float(n)
+end = time.perf_counter()
+print('float: ', end-start)
+
+
+start = time.perf_counter()
+run_decimal(n)
+end = time.perf_counter()
+print('float: ', end-start)
+
+
+#######################
+
+import math
+n = 5000000
+
+def run_float(n=1):
+    a = 3.1415
+    for i in range(n):
+        math.sqrt(a)
+        
+
+def run_decimal(n=1):
+    a = Decimal('3.1415')
+    for i in range(n):
+        a.sqrt()
+        
+
+n = 10000000
+
+start = time.perf_counter()
+run_float(n)
+end = time.perf_counter()
+print('float: ', end-start)
+
+
+start = time.perf_counter()
+run_decimal(n)
+end = time.perf_counter()
+print('float: ', end-start)

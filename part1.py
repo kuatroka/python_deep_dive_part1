@@ -1579,4 +1579,49 @@ round(15, -1) # searches multiples of 10 (10 to the power of (-10))
 round(25, -1) # searches multiples of 10
 
 
-lkl;kl;kl;kl;k
+#######################################################################
+########### rounding
+
+a = round(1.9)
+a, type(a)
+a = round(1.9, 0)
+a, type(a)
+
+n > 0
+round(1.8888, 3), round(1.8888, 2), round(1.8888, 1), round(1.8888, 0)
+
+# 3 decimals, 2 decimals, 1 decimal and zero (or a multiple of one)
+
+#### n < 0
+
+round(888.888, 1), round(888.888, 0), \
+round(888.888, -1), round(888.888, -2), round(888.888, -3), round(888.888, -4)
+
+## one decimal, zero decimals, round to 10, round to 100, round to 1000 and
+# round closer to zero because it's the closest multiple of 10000 as
+# rounding to 10 to the power of -4 means rouding to the closest 10000
+
+
+###### Ties
+round(1.25, 1)
+round(1.35, 1)
+#### again the bankint in work - rounding to the closest even number
+#### and in the first case, the 1.2 is even and 1.3 is not, therefore 1.25
+#### becomes 1.2 and not the expected 1.3
+
+
+def _round(x): # rounding to the integral value
+    from math import copysign
+    return int(x + 0.5 * copysign(1, x)) # copysign(1, x) multiplies sign of x by 1
+
+
+round(1.5), _round(1.5)
+round(2.5), _round(2.5)
+round(-2.5), _round(-2.5)
+
+round(10.5)
+
+
+#########################################################################
+############ Decimals ###################################################
+

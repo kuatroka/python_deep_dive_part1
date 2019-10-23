@@ -1426,6 +1426,9 @@ Fraction('0.34545')
 Fraction('34/76')
 x = Fraction(2,3)
 y = Fraction(3,4)
+c = Fraction(0, 1)
+print(c)
+
 x + y
 x * y
 x / y
@@ -1880,7 +1883,113 @@ run_decimal(n)
 end = time.perf_counter()
 print('float: ', end-start)
 
+###########################################################
+###### Boolean ############################################
 
-##############################################################
-##### Complex Numbers
+
+help(bool)
+issubclass(bool, int)
+
+type(True), id(True), int(True)
+type(False), id(False), int(False)
+
+3 < 4
+type(3 < 4)
+id(3 < 4)
+(3 < 4) == True
+(3 < 4) is True
+
+None is False
+(1 == 2) == False
+(1 == 2) is False
+1 == 2 == False ## careful with this chain comparison
+# the code above checks:
+1 == 2 and 2 == False
+
+int(True), int(False)
+1 + True
+100 * False
+True > False
+(True + True + True) % 2
+-True
+bool(0)
+bool(1)
+
+bool(100)
+bool(-100)
+#### any integer other than 0 has the value of True
+
+## every object in Python evaluates to True except:
+## None, False, 0 in any form
+## empty list, tuple, string, dictionary, set
+## custom classes that implement a __bool__ or __len__ method that returns False or 0
+
+bool(1)
+bool(0)
+bool(-2)
+
+help(bool)
+bool(100)
+(100).__bool__()
+a = []
+bool(a.__len__())
+
+
+bool(0.0), bool(0+0j)
+
+from decimal import Decimal
+from fractions import Fraction
+
+bool(Fraction(0,1)), bool(Decimal('0.0'))
+bool(10.5), bool(Fraction(1, 3)), bool(Decimal('2.4'))
+
+a = []
+b = ''
+c = ()
+
+bool(a), bool(b), bool(c)
+
+a = [1, 2, 3]
+b = '1, 2, 3'
+c = (1, 2, 3)
+bool(a), bool(b), bool(c)
+
+a = {}
+b = set()
+
+bool(a), bool(b)
+
+
+a = {'cat' : 23}
+b = {1, 2}
+
+bool(a), bool(b)
+
+bool(None)
+
+########## two way to write the same logic
+a = [1,2,3]
+if a is not None and len(a) > 0:
+    print(a[0])
+else:
+    print('Nothing to see here...')
+
+## now with boolean logic
+
+if a:
+    print(a[0])
+else:
+    print('Nothing to see here...')
+
+
+a = [1,2,3]
+if a is not None and len(a) > 0:
+    print(a[0])
+else:
+    print('Nothing to see here...')
+
+
+
+
+
 

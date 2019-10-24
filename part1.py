@@ -1989,6 +1989,169 @@ else:
     print('Nothing to see here...')
 
 
+##########################################################
+#### Boolean operators
+# Operator Precedence
+# ()
+# <> <= >= == != in is
+# not
+# and
+# or
+
+not --> and --> or
+
+True or True and False
+
+True or (True and False)
+
+(True or True) and False
+
+# True or Y --> always True
+# False and Y --> always False
+
+a = 10
+b = 2
+
+if a /b > 2:
+    print('a is at least twice b')
+#################
+a = 10
+b = 0
+# b = None
+
+if a /b > 2:
+    print('a is at least twice b')
+###############
+if b > 0 and a/b > 2:
+    print('a is at least twice b')
+
+##########################
+
+if b and a/b > 2: # even shorter version - short-cicuit
+    print('a is at least twice b')
+
+import string
+help(string)
+
+a = 'c'
+a in string.ascii_uppercase
+a in string.ascii_lowercase
+
+name = 'Bob'
+if name[0] in string.digits:
+    print('name cannot start with a digit')
+
+name = '' # if it's an empty string, it'll return an error
+if name[0] in string.digits:
+    print('name cannot start with a digit')
+
+name = '' # if it's an empty string, it'll return an error
+if len(name) > 0 and name[0] in string.digits:
+    print('name cannot start with a digit')
+
+name = '' # if it's an empty string, it'll return an error
+if name and name[0] in string.digits:
+    print('name cannot start with a digit')
+
+
+##########################################################
+######## Boolean Operators
+
+# X or Y: if X is truthy, returns X, otherwise evaluates and returns it
+'a' or [1,2]
+'' or [1,2]
+
+1 or 1/0  # doesn't even checks the 1/0 since 1 is truthy
+0 or 1/0 # evaluates the 1/0 since 0 is truthy
+
+# this pattern can be used for setting up default values
+s1 = None
+s2 = ''
+s3 = 'abc'
+
+s1 = s1 or 'n/a'
+s2 = s2 or 'n/a'
+s3 = s3 or 'n/a'
+
+print(s1, s2, s3)
+
+[] or [0]
+None or [0]
+
+######### and
+# X and Y: if X is falsy, returns X, otherwise evaluate and return Y
+
+
+None and 100
+
+[] and [0]
+# for example it can be used to avoid division by zero
+#
+
+# return zero if b == 0 , else evaluate and return a/b
+a = 2
+b = 0
+# b = 4
+
+b and a/b
+
+###
+# None or empty string or check the first charachter in string if exists
+
+s1 = None
+s2 = ''
+s3 = 'abc'
+
+print(s1 and s1[0])
+print(s2 and s2[0])
+print(s3 and s3[0])
+## add condition if None or empty, set default value as '' - empty string
+print(s1 and s1[0] or '')
+print(s2 and s2[0] or '')
+print(s3 and s3[0] or '')
+
+## add condition if None or empty, set default value as 'n/a' - empty string
+print(s1 and s1[0] or 'n/a')
+print(s2 and s2[0] or 'n/a')
+print(s3 and s3[0] or 'n/a')
+
+
+############### not operator
+
+not True
+not False
+
+bool('abc')
+
+not bool('abc')
+not bool()
+
+## the same
+not 'abc'
+not ''
+
+not bool(None)
+not None
+
+###############################################################
+####### Comparison Operators
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 
+
+
+
 
 
 

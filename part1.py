@@ -2136,6 +2136,67 @@ not None
 ###############################################################
 ####### Comparison Operators
 
+0.1 is (3 + 4j)
+
+3 is 3
+[1,2] is [1,2] # False
+
+'a' in 'this is a test'
+3 in [1,2,3]
+
+3 not in [1,2,3]
+
+'key1' in {'key1' : 1} # checks only the key, hence True
+1 in {'key1': 1} # False as only cheks keys in dictionaries
+
+3 < 5
+
+1 + 1j < 3 + 4J # can't use comparison < or > with mix complex numbers 
+# but the == sometimes can be used
+from decimal import Decimal
+from fractions import Fraction
+
+Fraction(2,3) < Decimal('0.5')
+4 == 4 + 0j
+
+True == Fraction(2,2)
+
+True < Fraction(3,2)
+
+
+1 < 2 < 3
+1 < 2 and 2 < 3
+
+
+3 < 2 < 1/0 # it evaluates first part as False and doesn't even go to
+# the second one even though it's mathematically wrong (no div by zero) 
+3 < 2 and 2 < 1/0
+
+3 < 4 < 1/0
+
+1 < 2 > -5
+
+1 < 2 > -5 == Decimal('-5.0')
+
+import string
+
+'A' < 'a' # I don't get it for now
+string.ascii_letters
+
+'A' < 'a' < 'z' > 'Z' in string.ascii_letters
+
+min  = 0
+max = 100
+age = 34
+min < age < max
+
+
+
+
+
+
+
+
 
 
 

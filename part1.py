@@ -2228,24 +2228,128 @@ my_func(10, c=20, b=10)
  my_func(10, c=30)
 
 ##########################################################
-#### Upacking tuples
+#### Upacking tuples, lists, or any iterables
 
 a = (1,2,3)
 type(a)
 
 a = 1, 2, 3
 type(a)
+a
+a = (1) # not a definition of tuple, it's the coma that does it
+
+a = 1,
+a
+a = (1,) # it's the same as without parens, just easier to read
+
+type(a)
+
+a = , # no
+a = (,)  # no
+
+a, b, c = [1, 'a', 3.14]
+a
+b
+c
+(a, b, c) = [1, 'a', 3.14] # the same as before
+
+a, b = (1, 2)
+a
+b
+
+a, b = 10, 20 # remeber, it's the comma that makes the tuple, 
+# not the parens
+a
+
+a,b,c, = 10, {1, 2}, ['a', 'b']
+a
+b
+c
+
+######### swap variables
+
+a, b = 10, 20
+print(a, b)
+
+a, b = b, a
+print(a, b)
+
+for e in 'XYZ':
+    print(e)
+
+a, b, c = 'XYZ'
+a
+b
+c
+
+s = 'XYZ'
+s[0]
+
+s = {1, 2, 3}
+s[0] # doesn't work since sets don't have this functionality
+
+s = {'p', 'y', 't', 'h', 'o', 'n'}
+print(s)
+
+for e in s:
+    print(e)
+
+a, b, c, d, e, f = s # sets unpacked not in order, since they're not ordered
+a
+b
+
+d = {'a':1, 'b':2, 'c':3}
+for e in d:
+    print(e)
+
+a,b,c = d
+a
+b
+
+d = {'a':1, 'b':2, 'c':3, 'd':4}
+a,b, c, d = d
+
+a
+b
+d, a, b, c = d
+d
+a
+b
+c
+# sets and dictionaries are unordered types, therefore what might
+# come back after iterating through it, might not alwayse come
+# in the same order as it was input originally
+
+for e in d:
+    print(e)
+
+d = {'a':1, 'b':2, 'c':3, 'd':4}
+for e in d.values():
+    print(e)
+
+a, b, c, d = d.values()
+a
+
+d = {'a':1, 'b':2, 'c':3, 'd':4}
+for e in d.items():
+    print(e)
+
+for e in d.items():
+    a, b = e
+    print(f'key={a}, value={b}')
+
+
+for a, b in d.items():
+    print(f'key={a}, value={b}')
+
+
+
+#######################################################
+##### unpacking using slices !!!!!!!
 
 
 
 
-
-
-
-
-
-
-# 
 
 
 

@@ -2345,15 +2345,260 @@ for a, b in d.items():
 
 
 #######################################################
-##### unpacking using slices !!!!!!!
+##### unpacking using slices and extended unpacking with * !!!!!!!
+##### important note: 
+##### slicing only workd with indexable/subscriptable iterables
+##### extended unpacking works with any iterable
 
 
+l = [1,2,3,4,5,6]
+
+a = l[0]
+b = l[1:]
+
+print(a)
+print(b)
+
+a, b = l[0], l[1:]
+print(a, b)
+
+a, *b = l
+a
+b
+
+# with sets or dictionaries we can't use slicing
+# as they don't have a concept of ordering
+s = {1,2,3}
+a = s[0]
+b = s[1:]
+## error
+
+s = 'python'
+a, *b = s
+a
+b
+# to pack list into a string again
+b_string = ''.join(b)
+b_string
+
+t = ('a', 'b', 'c')
+a, *b = t
+a
+b
+
+# unpacking to a lists
+[a, b, c] = 'XYZ'
+a
+b
+
+a, b, *c = 'python'
+a
+b
+c
+
+a, b, *c, d = 'python'
+c
+d
+a, b, c, *d, e, f, g = 'a brown fox jumped over a lazy dog'
+d
+## note: words are not the units in a string, characters are
+
+a, b, *c, d = s
+a
+b
+c
+d
+
+### slicing is a bit more complicated
+### but the slicing returns a string back, not a list as ectended unpacking
+
+a, b, c, d = s[0], s[1], s[2:-1] , s[-1]
+a
+b
+c
+d
+# now tha c is a string, if we want to have it as a list, we unpack it too
+# since unpacking always generates a list, here we create a tuple
+# of one element (by adding a comma and nothing after it)
+*c, = c
+list(c)
+
+### unpacking two lists into one
+l1 = [1,2,3]
+l2 = [4,5,6]
+
+l = [*l1, *l2]
+l
+
+l1 = [1,2,3]
+s = 'abc'
+[*l1, *s]
 
 
+l1 = [1,2,3]
+s1 = {'x', 'y', 'z'}
+
+[*l1, *s1]
+[*'python']
+st = 'python'
+[*st]
+list('python')
 
 
+## pack back into a string
+b_string = ''.join([*'python'])
+
+b_string = ''.join(s1)
+
+##################
+s1 = 'abc'
+s2 = 'cde'
+
+[*s1, *s2]
+{*s1, *s2}
+
+### sets remove the repeated values
+
+s = {10, -99, 3, 'd'}
+for c in s:
+    print(c)
 
 
+a,b,c,d = s
+print(a,b,c,d)
+
+a,b, *c = s
+## there is no ordering in sets so doing the type of unpacking 
+## as abofe is not too useful as it'll make assignement arbitrarily
+
+a
+b
+c
+### transform set into a list
+
+list(s)
+## or we can unpack it
+
+*c, = s
+c
+
+s1 = {1,2,3}
+s2 = {3,4,5}
+
+*s1, *s2 # without parens it creates a tuple because we used a comma
+{*s1, *s2}
+
+### orr we can use a standard method union on set
+s1.union(s2)
+
+
+s1 = {1,2,3}
+s2 = {3,4,5}
+s3 = {5,6,7}
+s4 = {7,8,9}
+
+s1.union(s2).union(s3).union(s4)
+
+s1.union(s2,s3,s4)
+
+## or unpack it to a set or a list
+{*s1, *s2, *s3, *s4}
+[*s1, *s2, *s3, *s4]
+
+
+d1 = {'key1': 1, 'key2': 2}
+d2 = {'key2': 3, 'key4': 4}
+
+# inpacking a dict will result in unpacking dict's keys into a set
+{*d1, *d2}
+
+# to unpack both keys and the values we use **
+{**d1, **d2}
+
+# we can upack dict while creting a new dict :)
+{'a': 1, 'b': 2, **d1, 'c': 3}
+
+
+## nested unpack
+a, b, e = [1, 2, 'XY']
+
+a
+b
+e
+c, d = e
+c
+a, b, (c, d) = [1, 2, 'XY']
+c
+
+###################
+a, b, (c, d, *e) = [1, 2, 'python']
+d
+e
+
+l = [1,2, 3, 4, 'python']
+a, *b, (c, d, *e) = l
+print(a, b, c, d, e)
+
+# now using slicing
+a, b, c = l[0], l[1:4], l[-1]
+a
+b
+c
+a, b, c, d, e = l[0], l[1:4], l[-1][0], l[-1][1], l[-1][2:] 
+a
+b
+c
+d
+e
+
+print(a, b, c, d, e)
+
+a, b, c, d, e = l[0], l[1:4], l[-1][0], l[-1][1], list(l[-1][2:])
+print(a, b, c, d, e)
+ 
+
+####### now instead of a list we use a tuple
+l = (1,2, 3, 4, ['a', 'b', 'c', 'd'])
+
+a, *b, (c, d, *e) = l
+print(a, b, c, d, e)
+
+## slicing works here too since they're both indexable/subscriptable,
+
+a, b, c, d, e = l[0], l[1:4], l[-1][0], l[-1][1], list(l[-1][2:])
+print(a, b, c, d, e)
+
+## but if want the same output format as above, we need convert it to a list
+## that is, 'b' expressed as a list and not a tuple
+a, b, c, d, e = l[0], list(l[1:-1]), l[-1][0], l[-1][1], list(l[-1][2:])
+print(a, b, c, d, e)
+
+#################################################################
+
+#### *args with functions
+
+a, b, *c = 10, 20, 'a', 'b'
+a
+b
+c
+def func1(a, b, *args):
+    print(a)
+    print(b)
+    print(args)
+
+func1(10, 20) # it's ok to have only 2 params as *s is not a mandatory 
+## and there can be any amount of these params after the two mandatory ones
+func1(10, 20, 1, 2, 3, 4, 5) # the rests of params become a tuple
+
+func1(a, b, c)
+
+def avg(*args):
+    print(args)
+
+
+avg(10, 20)
+
+avg(1, 2, 6, 0, 0, 'tonto')
 
 
 

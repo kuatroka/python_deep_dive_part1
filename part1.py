@@ -2601,4 +2601,124 @@ avg(10, 20)
 avg(1, 2, 6, 0, 0, 'tonto')
 
 
+def avg(*args):
+    count = len(args)
+    total = sum(args)
+    return total/count
+    # print(total/count)
+
+
+avg(10, 20, 30, 44, 55, 4.45)
+avg(2,2,4,4)
+
+avg() # if called with no params, it will crash with "division by zero"
+
+def avg(*args):
+    count = len(args)
+    total = sum(args)
+    if not args:
+        return 0
+    else: 
+        return total/count
+
+## other way to do the same
+def avg(*args):
+    count = len(args)
+    total = sum(args)
+    if not args:
+        return 0
+    else: 
+        return total/count
+
+## or below using boolean 'and' logic to set up a default value
+## and avoid the if statement
+### awesome ! it reduces the code by three lines
+def avg(*args):
+    count = len(args)
+    total = sum(args)
+    return count and total/count
+
+
+avg()
+avg(2,2,4,4)
+
+## or force user to specify to input at least one parameter
+def avg(a, *args):
+    count = len(args) + 1
+    total = sum(args) + a
+    return total/count
+
+avg() # now the error is not a division by zero, but a missing parameter
+avg(2,2,4,4)
+
+### unpack iterable into a positional argument
+def func1(a, b, c):
+    print(a)    
+    print(b)
+    print(c)
+
+l = [10, 20, 30]
+
+func1(l) # we can pass the list with three items, we need to unpack it
+
+func1(*l) ### beauty!!
+
+func1(10, 20, 30, 40) # if we pass more params, it'll break
+                      # so to avoid it, we can add *args
+                      # this way there won't be any errors in number of params
+
+
+def func1(a, b, c, *args):
+    print(a)    
+    print(b)
+    print(c)
+    print(args)
+
+l = [10, 20, 30, 40, 50]
+
+func1(*l)
+
+#############################################################
+## Keyword agruments 
+def func1(a,b,c):
+    print(a,b,c)
+
+func1(1,2,3)
+
+func1(1, c=3, b=2)
+
+func1(c=3, b=2, a=1)
+
+
+def func1(a,b,*args, d):
+    print(a,b, args, d)
+
+func1(1, 2, 3, 4, 5) # will not work as no positional arguments are 
+### allowed after args
+### we need either remove 'd' from the function definition, 
+### or add 'd' as a named argument when calling the function
+
+func1(1, 2, 3, 4, 5, d=10)
+
+def func1(*args, d):
+    print(args, d)
+
+func1(1, 2, 3, d='a')
+
+func1(d='a') # still ok since *args can be empty
+
+def func1(*, d): # still valid. the * indicates the end of positional
+### arguments 
+    print(d)
+
+func1(1,2,3, d=10) # error as I gave 3 pos arguments
+func1(19) # error since the funcion definition stipulates no pos arguments
+########### but does demands one keyword argument
+func1(d=10)
+
+def func(a,b, *, d):
+    print(a, b, d)
+
+
+func(1, 2, d=3)
 

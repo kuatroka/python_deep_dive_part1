@@ -2720,5 +2720,145 @@ def func(a,b, *, d):
     print(a, b, d)
 
 
-func(1, 2, d=3)
+func(1, 2, d=3)# ok
+func(1, 2, 3, d=5) # error as I gave more than 2 pos parameters
+
+def func(a, b=2, *args, d):
+    print(a, b, args, d)
+
+func(1, 5, 3, 4, d='a') # here b is the second pos agrument, 
+### therefore even though it has a default value, since the second
+### argument is 5, b takes the value of this 5. 
+### args is (3,4) and d = 'a'
+### everything that comes after *args is a keyword argument
+
+def func(a, b= 20, *args, d=0, e):
+    print(a, b, args, d, e)
+
+func(5, 4, 3, 2, 1) # error as required keyword argument 'e' was not passed
+
+func(5, 4, 3, 2, 1, e='are you talking to me?')
+
+func(0, 600, d='goood morning', e='vitnam!')# args is empty here
+### as it it's not mandatory for args to be filled with somethin
+
+func(11, 'm/s', 24, 'mph', d='unladen', e='swallow')
+
+####################################################################
+######### **kwargs ###################################################
+def func(**others):
+    print(others)
+
+
+func(a=1, b=2, c=3)
+
+def func(*args, **kwargs):
+    print(args)
+    print(kwargs)
+
+func(1, 2, x=100, y=200)
+
+def func(a, b, *, **kwargs): # error - can only use named (d=20) keyword
+##### arguments after a single * , but not **kwargs since they are not named, but
+##### takes all the keyword agruments into one place
+
+def func(a, b, *, d, **kwargs):
+    print(a)
+    print(b)
+    print(d)
+    print(kwargs)
+
+func(1, 3, 'tonto', d=1, e='cuanto te echo de menos', f=2) # error
+### one pos agrument extra - 'tonto'
+
+func(1, 3, d=1, e='cuanto te echo de menos', f=2)
+func(1, 3, e='cuanto te echo de menos', f=2, d=1)# order doesn't matter
+### as it's a named argument
+
+def func(a, b, **kwargs):
+    print(a)
+    print(b)
+    print(kwargs)
+
+func(1, 2, x=100, y=200)
+
+
+############################################
+def func(a,b, *args):
+    print(a, b, args)
+
+
+func(1, 2, 'x', 'y', 'z')
+
+func(a=1, b=2, 'x', 'y', 'z') # error as we use keyword arguments 
+###                             before we use positional and it needs
+###                             to be other way around
+
+def func(a, b=4, c=5, *args):
+    print(a, b, c, args)
+
+func(1, 2, 3, 'x', 'y', 'z')
+
+func(1, 5, 'x', 'y', 'z')
+
+def func(a, b=2, *args, c=3, d):
+    print(a,b, args, c, d)
+
+func(10, 20, 'x', 'y', 'z', c=4, d=1)
+func(10, 20, 'x', 'y', 'z', d = 10)
+
+func(1, 'x', 'y', 'z', b=4, d=10)
+## error since 'b' has alreay been assigned the value of 'x' and later
+## the value of 2, therefore it breaks
+
+def func(a, b, *args, c=10, d=20, **kwargs):
+    print(a, b, args, c, d, kwargs)
+
+func(1, 2, 'x', 'y', 'z', c=100, d=200, x=0.1, y=0.2)
+
+
+ print(1, 2, 3, sep='-')
+ print(4, 5, 6, sep='-', end=' *** ')
+
+
+#########################################
+### find min, max and their average
+
+def calc_hi_lo_avg(*args, log_to_console=False):
+    hi = int(bool(args)) and max(args)
+    
+    # lo = int(bool(args)) and min(args) # using boolean logic
+    # using the good old if, else
+    if len(args) == 0:
+        lo = 0
+    else:
+        lo = min(args)
+
+    ### using turnery operator
+    # lo = min(args) if len(args) > 0 else 0
+    lo = min(args) if args else 0
+
+    ## average
+    avg = (hi + lo)/ 2
+    if log_to_console:
+        print(f'high={hi}, low={lo}, avg={avg}')
+    return avg
+
+
+avg = calc_hi_lo_avg(1, 2, 3, 4, 5)
+print(avg)     
+
+avg = calc_hi_lo_avg(1, 2, 3, 4, 5, log_to_console=True)
+print(avg)
+
+is_debug = True # using the debug flag and later passing it to the func
+avg = calc_hi_lo_avg(1, 2, 3, 4, 5, log_to_console=is_debug)
+print(avg)
+
+
+
+def func(*, ): # maybe you want to use keyword only parameters
+    pass
+
+
 

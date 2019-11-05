@@ -2860,5 +2860,29 @@ print(avg)
 def func(*, ): # maybe you want to use keyword only parameters
     pass
 
+################################################################
 
+### A Simple Function Timer
+import time
+def time_it(fn, *args, **kwargs):
+    print(args, kwargs)
 
+time_it(print, 1, 2, 3, sep=' - ', end=' *** ')
+
+#### above just prints arguments but don't execute anything
+#################################
+def time_it(fn, *args, **kwargs):
+    fn(args, kwargs)
+
+time_it(print, 1, 2, 3, sep=' - ', end=' *** ')
+### this will not work as it will interpret it as arguments for
+### the print function. fn becomes print and it prints what it inside 
+### args and kwargs treating the contents as two tuples of underlying
+### values
+
+### for it to work, we need to unpack the args and kwargs so the
+### fn takes as arguments the content of args and kwargs
+def time_it(fn, *args, **kwargs):
+    fn(*args, **kwargs)
+
+time_it(print, 1, 2, 3, sep=' - ', end=' *** ')

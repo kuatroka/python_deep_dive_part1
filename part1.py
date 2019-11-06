@@ -2975,3 +2975,36 @@ time_it(compute_powers_4, 2, end=20000, rep=5)
 ##########################################################
 ######### ddfault value = beware!
 
+from datetime import datetime
+
+datetime.utcnow()
+print(datetime.utcnow())
+
+### because the code is read at the time of importing a module or packge
+### or the function creation
+### the below default parameter dt, will be read at the moment of
+### the function creaton and will not change when we call it.
+### therefore a trick is needed
+def log(msg, *, dt=datetime.utcnow()):
+    print(f'{dt} : {msg} ')
+
+
+log('message 1', dt='2001-01-02 00:00:00.000')
+
+
+log('message 1', dt='2011-01-02 00:00:00.000')
+
+
+log('message 2')  # the same default value even for utcnow()
+
+log('message 3')  # the same default value even for utcnow()
+
+##############
+### now we use defaut value of None and assign the value later
+### this will produce the correct result
+def log(msg, *, dt=None):
+    dt = dt or datetime.utcnow()
+    print(f'{dt} : {msg} ')
+
+log('message 3')
+log('message 3', dt='2011-01-02 00:00:00.000')

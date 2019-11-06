@@ -2973,8 +2973,8 @@ time_it(compute_powers_4, 2, end=20000, rep=5)
 
 
 ##########################################################
-######### ddfault value = beware!
-
+######### default value = beware!
+######### careful with mutable and immutable types
 from datetime import datetime
 
 datetime.utcnow()
@@ -3008,3 +3008,76 @@ def log(msg, *, dt=None):
 
 log('message 3')
 log('message 3', dt='2011-01-02 00:00:00.000')
+log('message 3', dt=None)
+
+###############################
+my_list = [1, 2, 3]
+def func(a=my_list):
+    print(a)
+
+func(a)
+func(['a', 'b'])
+
+########### if I change the list and later call the func again
+########### it will have the new list, not the original one 
+########### even though I put as the default in the func definition
+
+my_list.append(4)
+func()
+
+############# the solution to this is to use a tuple instead of 
+############# the list as the tuple can't be changed
+my_list = (1, 2, 3)
+def func(a=my_list):
+    print(a)
+
+my_list.append(4) # error as append and tuple are not friends
+my_list
+
+
+#################################################################
+def add_item(name, quantity, unit, grocery_list):
+    grocery_list.append(f'{name} ({quantity} {unit})')
+    return grocery_list
+
+
+
+store1 = []
+store2 = []
+
+add_item('banana', 2, 'units', store1)
+add_item('milk', 1, 'litre', store1)
+
+add_item('python', 1, 'medium-rare', store2)
+
+##### in case above I defined the store as a list before running a function
+##### let's make it easier
+##### if the store/grocery list is not provided, it will be created !
+
+def add_item(name, quantity, unit, grocery_list=[]): # we start an empty list
+    grocery_list.append(f'{name} ({quantity} {unit})')
+    return grocery_list
+
+del store1
+del store2
+
+store1 = add_item('banana', 2, 'units')
+store1 = add_item('milk', 1, 'litre')
+
+
+store2 = add_item('python', 1, 'medium-rare') 
+
+##### the problem is that now we have the same information in both variables:
+##### store1 and store2, wtf?
+##### the memory addresses are the same!!  
+
+##### how to deal with it....
+##### during the function definion, do not use mutable default types
+
+def add_item(name, quantity, unit=1, grocery_list=None): # we start an empty list
+    if not grocery_list:
+        grocery_list = []
+    grocery_list.append(f'{name} ({quantity} {unit})')
+    return grocery_list
+
+    

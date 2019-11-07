@@ -3154,3 +3154,60 @@ factorial(3)
 
 factorial(3)
 factorial(4)
+
+##############################################################
+
+### Docstrings and annotations
+
+help(int)
+
+def my_func(a, b=1):
+    """this is a func that returns a * b
+       docs here
+    """
+
+    return a * b
+
+help(my_func)
+
+my_func.__doc__
+
+def my_func(a: 'annotation for a',
+            b: 'annotation for b' =1) -> 'something':
+    """Documentation for my_func"""
+    return a * b
+
+help(my_func)
+my_func.__doc__
+my_func.__annotations__
+
+x = 30
+y = 5
+def my_func(a: 'some character', b= max(x,y)) -> 'character a repeated ' + str(max(x,y)) + ' times':
+    print(b)
+    return a * max(x,y)
+
+my_func('a')
+my_func.__annotations__ # it will actually calculate the math in the annotation
+# need to be careful with the default valuus as in the above chapters
+# as if we use a formula or calculation in the annotation, it will get
+# evaluated during the function creation step and will stay the same
+# as the very first set of value for the vars x and y and will not change
+# if the x and y do
+
+def my_func(a: str,
+            b: 'int > 0' = 1,
+            *args: 'some extra pos args',
+            k1: 'keyword-only arg 1',
+            k2: 'keyword-only arg 2' = 100,
+            **kwargs: 'some extra keword-only args' ) -> ' something':
+
+    print(a, b, args, k1, k2, kwargs)
+
+my_func.__annotations__
+
+my_func(1, 2, 3, 4, 5, k1=10, k3=300, k4=400)
+
+###############################################################
+###### lambda expressions 
+

@@ -3075,9 +3075,82 @@ store2 = add_item('python', 1, 'medium-rare')
 ##### during the function definion, do not use mutable default types
 
 def add_item(name, quantity, unit=1, grocery_list=None): # we start an empty list
-    if not grocery_list:
-        grocery_list = []
+    # if not grocery_list:
+    #     grocery_list = []
+    grocery_list = grocery_list or []
     grocery_list.append(f'{name} ({quantity} {unit})')
     return grocery_list
 
-    
+store1 = add_item('banana', 2, 'units')
+add_item('milk', 1, 'litre', store1)
+
+print(store1)
+
+store2 = add_item('python', 1, 'medium-rare') 
+print(store2)
+
+store1 is store2 # to check if the two have same memory address
+
+##################################################################
+## now a situation where we might want have a datastructure or a variable keeping
+## an initial value that was defined at the time of the code being first run or imported
+## side note: the concept of factorials is confusing.....
+def factorial(n):
+    if n < 1:
+        return 1
+    else:
+        print(f'calculating {n}!')
+        return n * factorial(n-1)
+
+factorial(3)
+
+
+
+###  the same as above but using the concept of cashe = !confusing for me!
+
+def factorial(n, *, cache):
+    if n < 1:
+        return 1
+    elif n in cache:
+        return cache[n]
+    else:
+        print(f'calculating {n}!')
+        result = n * factorial(n-1, cache=cache)
+        cache[n] = result
+        return result
+
+cache = {}
+
+factorial(3, cache=cache)
+
+cache[3]
+
+factorial(3, cache=cache)
+
+factorial(4, cache=cache)
+
+#### the above is very user friendly code or very efficient
+#### every time we run this function, we need to remember and ask to
+#### run it while defining cache all the time
+#### let' change it so we have a defalt value
+
+def factorial(n, cache={}): # now we define the dict automaticaly if not passed
+    # it's important the fact that dict is mutable and in this case
+    # it's important to have it initialised to an empty {} and not None
+    # as the use case calles for the values to be kept saved in that 
+    # variable cache and not overwritten as in case of assigning it to
+    # None as in the previous cases
+    if n < 1:
+        return 1
+    elif n in cache:
+        return cache[n]
+    else:
+        print(f'calculating {n}!')
+        result = n * factorial(n-1)
+        cache[n] = result
+        return result
+
+factorial(3)
+
+factorial(3)
+factorial(4)

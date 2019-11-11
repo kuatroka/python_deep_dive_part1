@@ -3211,4 +3211,75 @@ my_func(1, 2, 3, 4, 5, k1=10, k3=300, k4=400)
 ###############################################################
 ###### lambda expressions 
 
-headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36'}
+def sq(x):
+    return x**2
+
+type(sq)
+
+sq
+
+lambda x: x**2
+
+lambda x,y: x+y
+
+f = sq
+id(f), id(sq)
+
+f(3)
+sq(3)
+f
+
+f = lambda x: x**2
+f(3)
+
+g = lambda x, y =10: x+y
+g
+g(1, 2)
+g(1)
+
+f = lambda x, *args, y, **kwargs: (x, *args, y, kwargs)
+f()
+f(1, 'a', 'b', y=100, a=10, b=20)
+
+def sq(x):
+    return x**2
+
+def apply_func(x, fn):
+    return fn(x)
+
+apply_func(5, sq)
+
+apply_func(5, lambda x: x **2)
+
+apply_func(5, lambda x: x**3)
+
+def apply_func(fn, *args, **kwargs):
+    # return fn(args, **kwargs) # we can't use it this way, we need to unpack
+    return fn(*args, **kwargs)
+
+apply_func(sq, 3)
+
+# or we can do the same with lambda below
+apply_func(lambda x: x**2, 3)
+
+apply_func(lambda x, y: x + y, 1, 2)
+
+apply_func(lambda x, *, y: x+y, 1, y=20)
+
+apply_func(lambda *args: sum(args), 1, 2, 3, 4, 5)
+
+apply_func(sum, 1, 2, 3, 4, 5) # this will not work bcause fn sum expects a tuple
+apply_func(sum, (1, 2, 3, 4, 5)) # this will work
+sum(1, 2, 3, 4, 5) # sum works with 2 arguments max, so we need to put it in a tuple
+sum((1, 2, 3, 4, 5))
+
+##################################################
+### lambdas ans sorting
+
+
+
+
+
+
+
+

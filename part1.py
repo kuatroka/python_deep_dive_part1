@@ -3275,11 +3275,66 @@ sum((1, 2, 3, 4, 5))
 
 ##################################################
 ### lambdas ans sorting
+help(sorted)
+
+l = 1, 5, 4, 10, 9, 6
+sorted(l)
+l # l stays the same. sorted() returns a sorted l, but doesn't change the l itself
+
+l = ['c', 'B', 'D', 'a']
+sorted(l)
+
+ord('a')
+ord('A')
+
+sorted(l, key=lambda s: s.upper()) # we use lambda function as key to change the functionality of
+# sorting !! pretty awesome
+
+d = {'abc': 200, 'def': 300, 'ghi': 100}
+d
+for e in d:
+    print(e)
+
+sorted(d)
+
+sorted(d, key=lambda e: d[e])
+
+####
+def dist_sq(x):
+    return (x.real)**2 + (x.imag)**2
+
+dist_sq(1+1j)
+
+l = [3+3j, 1-1j, 0, 3+0j]
+
+sorted(l) # ordering doesn't support complex numbers
+
+sorted(l, key=dist_sq) # here we're using fn dist_sq as the key because it produces a list of 
+#### numbers and sorts accordingly to that list
+#### we can also do it with lambda
 
 
+sorted(l, key=lambda x: (x.real)**2 + (x.imag)**2) # just copy paste the return from dist_sq()
 
+##### 
+a = ['hasta', 'la', 'vista', 'baby']
+sorted(a, key=lambda x: len(x)) # the letter used after word lambda has to be used in expresion,
+# the content of the var a is automatically passed to the funcion
 
+l = ['Cleese', 'Idle', 'Palin', 'Gilliam', 'Jones', 'Champan', 'Palin']
+sorted(l)
 
+### sort by the last letter in each word
 
+sorted(l, key=lambda x: x[-1]) # it goes through each value of the list l because the fn sorted()
+### does it in its definition. It doesn't mean each fn will apply the for loop automatically
+
+l = [1, 2, 3, 4, 5]
+import random
+
+sorted(l, key=lambda x: random.random())
+
+###################################################################
+### Function Introspection
 
 

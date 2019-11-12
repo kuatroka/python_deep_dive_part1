@@ -3337,4 +3337,165 @@ sorted(l, key=lambda x: random.random())
 ###################################################################
 ### Function Introspection
 
+def my_func(a: 'mandatory pos param',
+            b: 'optional pos' =1, # very important! after assigning a default value to 
+            ####################### a positional param, all following pos params
+            ####################### must also have defaut values
+            c: 'optional pos' =2,
+            *args: 'add extra pos here',
+            kw1: 'mandatory keyword param',
+            kw2: 'optional keyword param' =100,
+            kw3: 'optional keyword param' =200,
+            **kwargs: 'optional extra keyword only params') -> 'does nothing':
+    """
+    This function does nothing but does have
+    various parameters and annotations
+    """
+    i = 10
+    j = 20
 
+
+my_func.__doc__
+my_func.__annotations__ 
+# we can create a var attached to this function like below
+my_func.short_description = 'this is a functin that does nothing much'
+
+my_func.short_description
+
+id(my_func)
+
+dir(my_func)
+my_func.__name__
+
+def func_call(f):
+    print(id(f))
+    print(f.__name__)
+
+func_call(my_func)
+
+
+my_func.__defaults__ # returns the default values of the positional parameters
+my_func.__kwdefaults__ # returns the default values of the keyword only parameters
+
+my_func.__code__
+dir(my_func.__code__)
+
+my_func.__code__.co_name
+my_func.__code__.co_varnames # lists all the param and local vars - only local vars
+
+my_func.__code__.co_argcount # careful - only shows positional agruments
+
+# import inspect
+from inspect import isfunction, ismethod, isroutine
+a = 10
+isfunction(a)
+isfunction(my_func)
+
+ismethod(my_func)
+
+class MyClass:
+    def f(self):
+        pass
+
+isfunction(MyClass.f) # True because it's a fn of a class
+ismethod(MyClass.f) # False as there is no instance of that class yet
+
+my_obj = MyClass()
+
+isfunction(my_obj.f) # False because there is already an obj to which this fn belongs
+ismethod(my_obj.f) # True as there is already an object, therefore this fn is bound to it
+#################### meaning, the fn became a method
+
+isroutine(my_obj.f) # an fn and a method are both routines
+isroutine(MyClass.f) # an fn and a method are both routines
+
+
+### let's add a couple of lines of code to the same fn
+
+# TODO: Fix this function  - it can be read later through inspect.getcomments()
+# more sample text
+def my_func(a: 'mandatory pos param',
+            b: 'optional pos' =1, # very important! after assigning a default value to 
+            ####################### a positional param, all following pos params
+            ####################### must also have defaut values
+            c: 'optional pos' =2,
+            *args: 'add extra pos here',
+            kw1: 'mandatory keyword param',
+            kw2: 'optional keyword param' =100,
+            kw3: 'optional keyword param' =200,
+            **kwargs: 'optional extra keyword only params') -> 'does nothing':
+    """
+    This function does nothing but does have
+    various parameters and annotations
+    """
+    i = 10
+    j = 20
+    a = i + j
+    return a 
+
+
+import inspect
+inspect.getsource(my_func) # returs all the code as a string
+print(inspect.getsource(my_func))
+
+## we still can assign a fn to a var and get the same data
+f = my_func
+print(inspect.getsource(f))
+
+inspect.getmodule(my_func) # shows where the fn lives
+inspect.getmodule(print)
+
+import math
+inspect.getmodule(math.sin)
+
+inspect.getcomments(my_func) # should return the comment immediately above the fn,
+############################## but for some reason doesn't work in interactive python
+############################## in VSCODE
+
+############ signature
+
+inspect.signature(my_func) # it returns attrubutes and we can use __dir__ to read them
+
+dir(inspect.signature(my_func))
+
+
+dir(inspect.signature(my_func))
+my_func.__annotations__
+inspect.signature(my_func).return_annotation
+
+sig = inspect.signature(my_func)
+sig.parameters
+for k, v in sig.parameters.items():
+    print(k, type(v)) # v is a Parameter object, meaning it has properties 
+    ################## we can check these properties with __dir__
+
+for k, param in sig.parameters.items():
+    print('Key:', k)
+    print('Name:', param.name) # name is one of properties of th object Parameter
+    print('Default:', param.default)
+    print('Annotation:', param.annotation)
+    print('Kind:', param.kind)
+    print('-----------------------------')
+
+
+
+### simplify
+for param in sig.parameters.values():
+
+    print('Name:', param.name) # name is one of properties of th object Parameter
+    print('Default:', param.default)
+    print('Annotation:', param.annotation)
+    print('Kind:', param.kind)
+    print('-----------------------------')
+
+
+
+
+### positional only parameters
+help(divmod) # example - the '/' sign means only positional params before the /
+for param in inspect.signature(divmod).parameters.values():
+    print(param.kind)
+
+### it's an internal python option - we can't create positional only params in our code
+
+###########################################################################

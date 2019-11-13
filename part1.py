@@ -3618,3 +3618,27 @@ for x in results:
 
 result = list(zip(range(1000), 'python'))
 result
+
+########################################################
+###### list comprehension
+def fact(n): # recursive definition for a factorial function  
+    return 1 if n < 2 else n * fact(n-1)
+
+l = range(10)
+list(map(fact, l))
+### or with a list comprehension
+
+results = [fact(n) for n in range(10)]
+results
+###########
+### we can create a generator which will behave similar to the map, filter
+### and zip, ie will not calculate all the results immediately and this is
+### called  a generator
+
+results = (fact(n) for n in range(10))
+results # it's quicer and doesn't take time  at all, neither immediate results
+######### and it exhausts after the first use
+
+results = list((fact(n) for n in range(10)))
+results
+

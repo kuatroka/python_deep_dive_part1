@@ -1,4 +1,3 @@
-
 ##################
 ### multiline code ############
 ### implicit line continuation
@@ -7,7 +6,6 @@ a = [1,2,3]
 
 a = [1,2,
     3,4,5]
-
 a
 
 a = [1 # item 1,
@@ -24,9 +22,10 @@ a = (1 # comment 1
      ,'key2' : 2 # value for the key 2
      }
 
+
 def my_func(a, # comment for the argument 1
-     b, # comment for the argument 2
-      c):
+            b, # comment for the argument 2
+            c):
     print(a,b,c)
 
 my_func(10, # comment for value 1
@@ -3499,3 +3498,5 @@ for param in inspect.signature(divmod).parameters.values():
 ### it's an internal python option - we can't create positional only params in our code
 
 ###########################################################################
+#### Callables 
+##############

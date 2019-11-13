@@ -3555,4 +3555,66 @@ b.counter
 callable(b)
 b()
 
+############################################################################
+######## map, filter, zip
+def fact(n): # recursive definition for a factorial function  
+    return 1 if n < 2 else n * fact(n-1)
+######### I don't get recursion and factorials!!!!
+fact(3)
+fact(4)
 
+###
+result = map(fact, range(6))
+print(result)
+for x in result: # when running this code the second time, there is no result
+    ############## this happens due the fact that map() produces an iterable, not
+    ############## actual calculated result
+    print(x)
+
+result = list(map(fact, range(6)))
+result
+
+
+l1 = [1,2,3,4,5]
+l2 = [10, 20, 30]
+l3 = 100, 200, 300, 400 # it can be a tuple too
+
+results = list(map(lambda x,y, z: x+y+z, l1, l2, l3))
+print(results)
+########### to the map() we need to pass the same number of parameters
+########### as the fn has. In this case the lambda. And the error will appear
+########### only when we try to read the map object, not during the map() definition
+
+####### filter()
+x = range(25)
+print(x)
+
+for i in x:
+    print(i)
+
+
+list(filter(lambda x: x % 3 == 0, range(25)))
+
+list(filter(None, [1, 0, 4, None, '', 'a', True, False]))
+
+#############################
+######### zip()
+
+l1 = [1,2,3,4]
+l2 = [10, 20, 30, 40]
+l3 = 'python'
+
+zip(l1, l2, l3)
+
+results = zip(l3, l1, l2)
+for x in results:
+    print(x)
+
+#### when you run it a second time, you will not anything back since it's a generator
+#### we need to put it into a list we we need it multiple times
+results = list(zip(l3, l1, l2))
+for x in results:
+    print(x)
+
+result = list(zip(range(1000), 'python'))
+result

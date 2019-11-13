@@ -3500,3 +3500,59 @@ for param in inspect.signature(divmod).parameters.values():
 ###########################################################################
 #### Callables 
 ##############
+callable(print)
+
+## every callable returns a value
+result = print('hello')
+print(result)
+
+l = [1, 2, 3]
+callable(l.append)
+result = l.append(4)
+print(result)
+
+s = 'abc'
+callable(s.upper) # True, but be careful not to add the ()
+callable(s.upper()) # False
+result = s.upper()
+print(result)
+
+from decimal import Decimal
+callable(Decimal)
+
+a = Decimal('29.65')
+a
+## all classed are callable, but not all the instances are callable
+
+class MyClass:
+    def __init__(self, x=0):
+        print('initialing...')
+        self.counter = x
+        
+
+callable(MyClass) # the class is callable
+
+a = MyClass(100)
+a.counter
+callable(a) # False but the instance is not
+
+## let's make sure the instances are also callable
+class MyClass:
+    def __init__(self, x=0):
+        print('initialing...')
+        self.counter = x
+
+    def __call__(self, x=1):
+        print('updating counter...')
+        self.counter += x
+
+b = MyClass()
+c = MyClass # careful with ending with () or not, when you add () it runs the class 
+############# and initalizes it
+callable(b)
+MyClass.__call__(b, 10)
+b.counter
+callable(b)
+b()
+
+

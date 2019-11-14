@@ -3642,3 +3642,28 @@ results # it's quicer and doesn't take time  at all, neither immediate results
 results = list((fact(n) for n in range(10)))
 results
 
+l1 = [1,2, 3, 4, 5]
+l2 = [10, 20, 30, 40]
+
+list(map(lambda x, y: x+y, l1, l2))
+
+[x+y for x, y in zip(l1, l2)]
+
+#### now let's filter our odd numbers out
+
+list(filter(lambda x: x%2 == 0, map(lambda x, y: x+y, l1, l2)))
+
+### or with list comprehensions
+
+[x for x in map(lambda x, y: x+y, l1, l2) if x % 2 == 0]
+### or
+[x + y for x, y in zip(l1, l2) if (x+y)% 2 == 0]
+
+### or a generator
+results = (x for x in map(lambda x, y: x+y, l1, l2) if x % 2 == 0)
+print(list(results))
+
+#####################################################################
+#### Reducing Functions
+#####################################################################
+

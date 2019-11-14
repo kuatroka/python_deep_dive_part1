@@ -3667,3 +3667,31 @@ print(list(results))
 #### Reducing Functions
 #####################################################################
 
+
+l  = [5, 8, 6, 10, 9]
+### fn for max of two values
+_max = lambda x,y: x if x > y else y
+_max(1, 4)
+_max(5, 60)
+
+#### now to apply this max fn for a sequence
+def max_sequence(sequence):
+    result = sequence[0]
+    for x in sequence:
+        result = _max(result, x)
+    return result
+
+
+max_sequence(l)
+
+### min value
+_min = lambda x,y: x if x < y else y
+
+def min_sequence(sequence):
+    result = sequence[0]
+    for x in sequence:
+        result = _min(result, x)
+    return result
+
+min_sequence(l)
+

@@ -3559,7 +3559,7 @@ b()
 ######## map, filter, zip
 def fact(n): # recursive definition for a factorial function  
     return 1 if n < 2 else n * fact(n-1)
-######### I don't get recursion and factorials!!!!
+######### I don't get recursion and factorials!!!!  I don't understand it yet
 fact(3)
 fact(4)
 
@@ -3677,7 +3677,7 @@ _max(5, 60)
 #### now to apply this max fn for a sequence
 def max_sequence(sequence):
     result = sequence[0]
-    for x in sequence:
+    for x in sequence[1:]:
         result = _max(result, x)
     return result
 
@@ -3689,9 +3689,98 @@ _min = lambda x,y: x if x < y else y
 
 def min_sequence(sequence):
     result = sequence[0]
-    for x in sequence:
+    for x in sequence[1:]:
         result = _min(result, x)
     return result
 
 min_sequence(l)
+
+
+_add = lambda a, b: a+b
+
+def add_sequence(sequence):
+    result = sequence[0]
+    for x in sequence[1:]:
+        result = _add(result, x)
+    return result
+
+add_sequence(l)
+
+def _reduce(fn, sequence):
+    
+    result = sequence[0]
+    for x in sequence[1:]:
+        result = fn(result, x)
+    return result
+
+_reduce(_max, l)
+_reduce(_min, l)
+_reduce(_add, l)
+
+_reduce(_max, {1, 2, 3, 5}) # error as sets are not indexable
+
+
+from functools import reduce
+
+reduce(_max, l)
+
+reduce(_max, {1, 2, 3, 4, 5})
+
+max(l)
+min({1, 2, 3, 4, 5})
+
+s  = {True, '', 2, 0, None}
+all(s) # return True if all are truthy
+bool(True) and bool('') and bool(2) and bool(0) and bool(None)
+
+any(s) #  return False if any of them is truthy
+bool(True) or  bool('') or  bool(2) or  bool(0) or  bool(None)
+
+
+reduce(lambda a, b: bool(a) and bool(b), s)
+
+reduce(lambda a, b: bool(a) or bool(b), s)
+
+
+l  = [5, 8, 6, 10, 9]
+# 5 * 8 * 6 * 10 * 9
+reduce(lambda a, b: a * b, l)
+
+# 4! = 4 * 3 * 2 * 1 = factorial function
+
+range(1, 5+1) # factorial would go from 1 to 5
+reduce(lambda a, b: a * b, range(1, 5+1)) # even though we specify only a and b
+########## i.e. two value, the lambda fn will apply it to the rest of the 
+########## values created by the generator range()
+
+def fact(n):
+    return 1 if n < 2 else n * fact(n-1)
+
+fact(5)
+
+def fact(n):
+    return reduce(lambda a, b: a * b, range(1, n+1))
+
+fact(5)
+
+### reduce() has an initalizer
+### let's recreate it
+
+def _reduce(fn, sequence, initial):
+    
+    result = initial
+    for x in sequence:
+        result = fn(result, x)
+    return result
+
+_reduce(lambda a, b: a+b, l, 0)
+
+_reduce(lambda a, b: a + b, {1,2, 3, 4}, 0)
+_reduce(lambda a, b: a + b, {1,2, 3, 4}, 100)
+
+
+
+
+
+
 

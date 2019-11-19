@@ -3779,7 +3779,121 @@ _reduce(lambda a, b: a + b, {1,2, 3, 4}, 0)
 _reduce(lambda a, b: a + b, {1,2, 3, 4}, 100)
 
 
+####################################################################
+#  Partials - reduces the number of args by specifying some of the args as
+#  defaults and calling the initial fn through a partial one
 
+from functools import partial
+
+def my_func(a, b, c):
+    print(a, b, c)
+
+my_func(10, 20, 30)
+
+### partial fn
+def f(x, y):
+    return my_func(10, x, y)
+
+f(20, 30)
+
+f = lambda x, y: my_func(10, x, y)
+f(100, 200)
+
+#### using the partial package from functools module
+
+f = partial(my_func, 10)
+f(20, 30)
+
+f = partial(my_func, 10, 20)
+f(30)
+
+def my_func(a, b, *args, k1, k2, **kwargs):
+    print(a, b, args, k1, k2, kwargs)
+
+
+my_func(10, 20, 100, 200, k1= 'a', k2='b', k3=1000, k4=2000)
+
+def f(x, *vars, kw, **kwvars):
+    return my_func(10, x, *vars, k1='a', k2=kw, **kwvars)
+
+
+f(20, 100, 200, kw='b', k3=1000, k4=2000)
+
+
+### using partial is easier and cleaner
+f = partial(my_func, 10, k1='a')
+f(20, 100, 200, k2='b', k3=1000, k4=2000)
+
+def pow(base, exponent):
+    return base ** exponent
+
+
+sq = partial(pow, 2) # this way it's the base that gets filled
+###################### if we need the exponent, we need to use names in pos
+###################### args
+sq(10)
+
+sq = partial(pow, exponent=2)
+sq(10)
+
+cu = partial(pow, exponent=3)
+cu(5)
+
+cu(5, exponent=2) # here we're overiding the partial fn definition by 
+################### providing new value for exponent
+
+
+a = 2
+sq = partial(pow, exponent=a)
+sq(5)
+
+a  = 3
+sq(5) # need to be careful with assigning value to a var in partial()
+###### as if we later change the var, the partial() will still point to old value
+###### since it the reference is still the same unless the patrial() is called again
+###### it's the same when we looked at default values in function calls
+
+### if the parameter is mutable then it's a different. If we change the var.
+### it will propagate to the fn as well
+
+def my_func(a, b):
+    print(a, b)
+
+
+a = [1, 2] # list is mutable
+f = partial(my_func, a)
+f(100)
+
+a.append(3)
+f(100)
+
+######################
+### uses of partial fn
+
+### we can use it in sorted() with key
+origin = (0, 0)
+l = [(1, 1), (0, 2), ( -3, 2), (0, 0), (10, 10)]
+dist2 = lambda a, b: (a[0] - b[0])**2 + (a[1] - b[1])**2
+dist2(l[0], origin)
+
+sorted(l)
+
+f = partial(dist2, origin)
+f(l[0])
+### now sorted() use f() as key by which to order
+### sorted() takes every element of l and passes it through f(), which
+### takes it to dist2() and calculated distance between every element of
+### l and the origin (0, 0) and the resulting list of distances is ordered
+sorted(l, key=f)
+
+### other way
+f = lambda x: dist2(origin, x)
+sorted(l, key=f)
+
+### or
+sorted(l, key=lambda x: dist2(origin, x))
+### or
+sorted(l, key=partial(dist2, origin))
 
 
 

@@ -3896,5 +3896,23 @@ sorted(l, key=lambda x: dist2(origin, x))
 sorted(l, key=partial(dist2, origin))
 
 
+####### unrelated... merging of sets
+s = {1, 2, 3}
+s2 = {'a', 'b', 'c'}
+s3 = {'tetas', 'como', 'caretas'}
+s | s2 | s3
+
+
+# for lists
+l = [(1, 1), (0, 2), ( -3, 2), (0, 0), (10, 10)]
+l2  = [5, 8, 6, 10, 9]
+
+l | l2 # error
+import operator
+operator.concat(l, l2)
+
+############ The operator Module #################################
+
+
 
 

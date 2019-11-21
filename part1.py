@@ -3913,6 +3913,216 @@ operator.concat(l, l2)
 
 ############ The operator Module #################################
 
+import operator
+dir(operator)
+
+1 + 2
+operator.add(2, 3)
+
+operator.mul(2, 3)
+operator.truediv(3, 2)
+operator.floordiv(13, 2)
+13 // 2
+
+from functools import reduce
+# in reduce fn earlier we used lambda to pass multiplication fn to reduce()
+reduce(lambda x, y: x*y, [1, 2, 3, 4])
+
+## we can use operator.mul instead
+
+reduce(operator.mul, [1, 2, 3, 4])
+
+operator.lt(10, 3)
+
+from operator import is_
+
+is_('abc', 'def')
+is_('abc', 'abc')
+
+operator.truth([1])
+
+operator.truth([])
+
+############################ getter and setters
+my_list = [1, 2, 3, 4]
+my_list[1]
+# or
+operator.getitem(my_list, 1)
+
+my_list[1] = 100
+del my_list[3]
+
+my_list = [1, 2, 3, 4]
+operator.setitem(my_list, 1, 100)
+
+operator.delitem(my_list, 3)
+
+f = operator.itemgetter(2) # it will set the itemgetter() to alwasy get 
+## the element on the position #2
+type(f)
+f(my_list)
+
+s = 'python'
+f(s)
+
+f = operator.itemgetter(2, 3)
+my_list = [1, 2, 3, 4]
+f(my_list)
+
+my_list = [1, 2, 3, 4]
+f('python')
+
+### attrgetter()
+
+class MyClass:
+    def __init__(self):
+        self.a = 10
+        self.b = 20
+        self.c = 30
+
+    def test(self):
+        print('test method running...')
+
+
+obj = MyClass()
+obj
+obj.a
+obj.test
+obj.test()
+
+operator.attrgetter('a') # it doesn't specify what object or what the 'a' is
+### is in reality. It doesn't care. You can use it on any object to get
+### an attribute 'a' if it exists
+
+prop_a = operator.attrgetter('a')
+prop_a(obj)
+
+my_var = 'b'
+operator.attrgetter(my_var)(obj) # a bit convoluted way to get attr with name 'b'
+
+prop_b = operator.attrgetter(my_var)
+prop_b(obj)
+
+my_var = 'c' # be careful. By changing the my_var, will not change the 
+# result immediately 
+
+a, b, test = operator.attrgetter('a', 'b', 'test')(obj)
+a
+b
+test
+test()
+
+f  = lambda x: x.a # this is the way to get the attribute a of any object x
+### using lambda syntaxis
+f(obj)
+
+f = lambda x: x[2]
+x = [1, 2, 3, 4]
+f(x)
+
+## or multiple
+f = lambda x: (x[2], x[3])
+x = [1, 2, 3, 4]
+f(x)
+
+### use case sorting()
+
+a= 5 + 10j
+a
+a.real
+
+l = [5-10j, 3+3j, 2-100j]
+## complex numbers don't support sorting. We need to add a sorting logig to
+## the key option of sorted()
+
+# one way 
+sorted(l, key=lambda x: x.real)
+
+# another way
+sorted(l, key=operator.attrgetter('real'))
+
+#### another use case - sort the list of tuples by the first element of the tuple
+
+l = [(2, 3, 4), (1, 3, 5), (6,), (4, 100)]
+
+sorted(l, key=operator.itemgetter(0))
+
+##  with lambda
+sorted(l, key=lambda x: x[0])
+
+### another use case - get a class' callable method
+
+class MyClass:
+    def __init__(self):
+        self.a = 10
+        self.b = 20
+        self.c = 30
+
+    def test(self):
+        print('test method running...')
+
+
+obj = MyClass()
+f = operator.attrgetter('test')
+
+f(obj) # this only return the obj's method 'test', but doesn't call it
+f(obj)() # - calls it
+## or instead of the weird convoluted double parens syntaxis
+
+## we can call it with the  operator.methodcaller()
+f = operator.methodcaller('test')
+f(obj)
+
+
+### what to do in case we need to call a method with parameters
+
+class MyClass:
+    def __init__(self):
+        self.a = 10
+        self.b = 20
+
+
+    def test(self, c):
+        print(self.a, self.b, c)
+
+
+obj = MyClass()
+obj.test(100)
+
+f = operator.methodcaller('test', 100)
+f(obj)
+## or 
+operator.methodcaller('test', 100)(obj)
+
+## with *args
+class MyClass:
+    def __init__(self):
+        self.a = 10
+        self.b = 20
+
+
+    def test(self, c, d, *, e):
+        print(self.a, self.b, c, d, e)
+
+
+obj = MyClass()
+obj.test(100, 200, e='ta luego')
+operator.methodcaller('test', 100, 200, e='ta luego')(obj)
+## or
+f = operator.methodcaller('test', 100, 200, e='ta luego')
+f(obj)
+
+#####################################################################
+### Scope, Closures, Decorators
+#####################################################################
+
+
+
+
+
+
+
+
 
 
 

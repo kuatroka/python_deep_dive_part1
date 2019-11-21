@@ -4116,13 +4116,126 @@ f(obj)
 ### Scope, Closures, Decorators
 #####################################################################
 
+a = 10
+
+def my_func(n):
+    c = n**2
+    return c
+
+
+def my_func(n):
+    print('global a:', a)
+    c = a**n
+    return c
+
+
+my_func(2)
+
+def my_func(n):
+    a = 20
+    c = a**n
+    print(a)
+    return c
+
+my_func(2)
+
+print(a)
+
+def my_func(n):
+    global a
+    a = 20
+    c = a**n
+    print(a)
+    return c
+    
+
+my_func(2)
+
+print(a)
+
+
+def my_func():
+    global bar
+    bar = 'hello world'
+    return bar
+
+print(bar) # before the fn is run the global var bar doesn't exist
+my_func()
+
+print(bar) # after running the fn() , it does exist
+
+a = 10
+
+def my_func():
+    print('global a: ', a)
+
+my_func()
+
+
+a = 10
+
+def my_func():
+    global a
+    a = 'hello'
+    print('global a: ', a)
+
+my_func()
+print(a) ## need to be careful with 'global' statement as if used anywhere
+### even within a function, the var that is been declared and value changed
+### will be changed for the entire module
+
+a = 10
+
+def my_func():
+    # global a
+    # a = 'hello'
+    print('global a: ', a)
+    a = 'hello world' # at compile time, Python will see that there is a 
+    ## declaration/creation of the var a. Python will designate it as local
+    ## even though there is global a declared before the fn()
+    print(a)
 
 
 
+my_func()
+
+###
+f = lambda n: print(a**n) # lambda will use the any var declared in the module globally
+
+f(2)
+
+print(True)
+
+print = 'sdfsdf'
+print('sdsdf')
+
+print('SD')
+
+## remove any allocation to any variable, we need to delete it
+
+del print
+print('sdsd')
 
 
 
+### in java there is a notion of codeblock and the scope is also defined on 
+### the level of the codeblock. Python is different. It doesn't have it
 
+### java example ###
+"""
+for (int i = 0; i < 10; i++) {
+    int x = 2 * i;
+}
+system.out.println(x);
 
+## this will throw an error because the var x doesn't exist oursite the
+## codeblock, so we can't print x in this case
+"""
 
+## in Python we can
 
+for i in range(10):
+    x = i * 2
+
+print(x) # we can print x even though we do it outside the codeblock - in this
+## case the for loop

@@ -4239,3 +4239,109 @@ for i in range(10):
 
 print(x) # we can print x even though we do it outside the codeblock - in this
 ## case the for loop
+
+
+################################################
+### nonlocal variables and scopes and namespaces
+
+def outer_func():
+    x = 'hello'
+    def inner_func():
+        print(x)
+
+    inner_func()
+
+outer_func()
+
+#######
+def outer_func():
+    x = 'hello'
+    def inner1():
+        def inner2():
+            print(x)
+        inner2()
+    inner1()
+
+outer_func()
+
+#######################
+def outer_func():
+    x = 'hello'
+    def inner():
+        x = 'python'
+        print('inner', x)
+    inner()
+    print('outer', x)
+
+outer_func()
+
+#################
+def outer_func():
+    x = 'hello'
+    def inner():
+        nonlocal x
+        x = 'python'
+        print('inner', x)
+    print('outer - before', x)
+    inner()
+    print('outer - after', x)
+
+outer_func()
+
+#####################
+def outer_func():
+    x = 'hulloooo'
+    def inner1():
+        def inner2():
+            nonlocal x
+            x = 'python'
+        inner2()
+    inner1()
+    print(x)
+
+outer_func()
+
+###########################
+def outer_func():
+    x = 'hulloooo'
+    def inner1():
+        nonlocal x
+        x = 'python'
+        def inner2():
+            nonlocal x
+            x = 'monty'
+        inner2()
+    inner1()
+    print(x)
+
+outer_func()
+
+######################
+x = 'python'
+def outer():
+    global x
+    x = 'monty'
+
+    def inner():
+        nonlocal x  # will throw error since x is already defined as global
+        x = 'hello'
+    print(x)
+
+###########
+
+x = 'python'
+def outer():
+    # global x
+    x = 'monty'
+
+    def inner():
+        nonlocal x  # will throw error since x is already defined as global
+        x = 'hello'
+    inner()
+    print(x)
+
+outer()
+
+print(x) # still 'python' since it's stil a global (a module scope) var
+
+################################

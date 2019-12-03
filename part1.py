@@ -4345,3 +4345,64 @@ outer()
 print(x) # still 'python' since it's stil a global (a module scope) var
 
 ################################
+###################################################################
+############ Closures #############################################
+
+def outer():
+    x = 'python'
+    def inner():
+        print(x)
+    return inner
+
+fn = outer()
+fn.__code__.co_freevars
+
+fn.__closure__
+
+########################
+def outer():
+    x = [1,2,3]
+    print(hex(id(x)))
+    def inner():
+        x = [1,2,3]
+        print(hex(id(x)))
+    return inner
+
+fn = outer() # here the outer x is printed
+fn() # here the inner x is printed
+### they have different memory addresses
+
+#################
+def outer():
+    x = [1,2,3]
+    print(hex(id(x)))
+    def inner():
+        y = x # now we referencing the outer x, so memory address 
+        ####### should be the same
+        print(hex(id(y)))
+    return inner
+
+fn = outer() # here the outer x is printed
+fn() # here the inner x is printed
+### in this case the addreses are the same
+fn.__closure__
+
+
+##################
+def outer():
+    count = 0
+    def inc():
+        nonlocal count # refers to the var from outer() and modifies it
+        count += 1
+        return count
+    return inc 
+
+fn = outer() # assign or define the outer() to a var
+fn.__code__.co_freevars
+fn.__closure__
+hex(id(0))
+
+fn() # calling the closure and calling it multiple times will change 
+###### the value of 'count' bcause the definition of the outer fn
+###### changes all the time we run it due to inc() changing the value
+###### of 'count'

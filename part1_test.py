@@ -15,3 +15,8 @@ while True:
     if len(name) >= min_length and name.isprintable() and name.isalpha():
         break
 print('Hello, {0}'.format(name))
+
+###########################
+import whois
+
+print(whois.whois('https://www.wegotcoders.com/'))
